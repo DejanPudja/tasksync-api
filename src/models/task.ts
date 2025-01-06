@@ -53,30 +53,6 @@ export const Task = sequelize.define<Model<TaskAttributes>>(
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
     },
-    // status: {
-    //   type: DataTypes.ENUM(
-    //     "backlog",
-    //     "estimate",
-    //     "ready to proceed",
-    //     "bugs found",
-    //     "in progress",
-    //     "qa ready",
-    //     "qa review",
-    //     "deployment",
-    //     "client review",
-    //     "on hold",
-    //     "done",
-    //     "ready to bill",
-    //     "completed"
-    //   ),
-    //   allowNull: false,
-    //   defaultValue: "backlog",
-    // },
-    // priority: {
-    //   type: DataTypes.ENUM("low", "normal", "high", "urgent"),
-    //   allowNull: false,
-    //   defaultValue: "low",
-    // },
   },
   {
     tableName: "tasks",
