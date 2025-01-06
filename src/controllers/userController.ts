@@ -1,15 +1,44 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { log } from "console";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const users = await User.findAll();
-    res.status(200).json(users);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error while fetching users." });
+    const users = await User.findAll({
+      attributes: ["name", "email", "role"],
+    });
+
+    res.status(200).json({
+      users: users,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal Server Error!",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({
+      where: { id },
+      attributes: ["name", "email", "role"],
+    });
+
+    res.status(200).json({
+      user: user,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal Server Error!",
+      success: false,
+      error: error.message,
+    });
   }
 };
 
@@ -25,7 +54,7 @@ export const registerUser = async (
     if (existingUser) {
       res
         .status(400)
-        .json({ message: "Email is already in use!", success: false });
+        .json({ message: "Internal Server Error!", success: false });
       return;
     }
 
