@@ -17,3 +17,10 @@ export const validateCreateProject = [
     .isIn(["active", "complete"])
     .withMessage("Status must be either 'active' or 'complete'!"),
 ];
+
+export const validateUpdateProject = [
+  body("status")
+    .optional()
+    .isIn(["active", "complete"])
+    .withMessage("Status must be either 'active' or 'complete'!"),
+];
