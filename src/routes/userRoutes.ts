@@ -1,6 +1,13 @@
 import { Router } from "express";
-import { getUsers, registerUser } from "../controllers/userController";
-import { validateUserRegistration } from "../validators/userValidation";
+import {
+  getUsers,
+  loginUser,
+  registerUser,
+} from "../controllers/userController";
+import {
+  validateUserRegistration,
+  validateUserLogin,
+} from "../validators/userValidation";
 import { handleValidationErrors } from "../middlewares/validationResultHandler";
 
 const router = Router();
@@ -12,5 +19,6 @@ router.post(
   handleValidationErrors,
   registerUser
 );
+router.post("/login", validateUserLogin, handleValidationErrors, loginUser);
 
 export default router;

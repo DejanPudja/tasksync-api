@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
+import { log } from "console";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -43,18 +44,46 @@ export const registerUser = async (
       success: true,
     });
   } catch (error: any) {
-    if (error.name === "SequelizeValidationError") {
-      res.status(400).json({
-        message: "Validation Error",
-        errors: error.errors.map((err: any) => err.message),
+    res.status(500).json({
+      message: "Internal Server Error!",
+      error: error.message,
+      success: false,
+    });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (
+      !user ||
+      !(await bcrypt.compare(password, user.get("password") as string))
+    ) {
+      res.status(401).json({
+        message: "Invalid credentials!",
         success: false,
       });
-    } else {
-      res.status(500).json({
-        message: "Internal Server Error!",
-        error: error.message,
-        success: false,
-      });
+      return;
     }
+
+    res.status(200).json({
+      message: "Login successful",
+      success: true,
+      user: {
+        id: user.get("id"),
+        name: user.get("name"),
+        email: user.get("email"),
+        role: user.get("role"),
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal Server Error!",
+      error: error.message,
+      success: false,
+    });
   }
 };

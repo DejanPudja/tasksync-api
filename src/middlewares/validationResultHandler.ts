@@ -10,6 +10,7 @@ export const handleValidationErrors = (
   if (!errors.isEmpty()) {
     res.status(400).json({
       message: "Validation errors",
+      success: false,
       errors: errors.array(),
     });
     return;

@@ -1,7 +1,10 @@
-import { DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
+import { UserAttributes, UserCreationAttributes } from "../utils/types";
 
-const User = sequelize.define(
+export const User = sequelize.define<
+  Model<UserAttributes, UserCreationAttributes>
+>(
   "User",
   {
     id: {
@@ -25,6 +28,7 @@ const User = sequelize.define(
     role: {
       type: DataTypes.ENUM("superadmin", "admin", "user", "guest"),
       allowNull: false,
+      defaultValue: "user",
     },
   },
   {
