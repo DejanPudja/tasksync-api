@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                       // Kompajlira u ES6
+    "module": "commonjs",                  // Koristi CommonJS module
+    "rootDir": "./src",                    // Korenski direktorijum za ulazne fajlove
+    "outDir": "./dist",                    // Izlazni direktorijum za generisane fajlove
+    "strict": true,                        // Uključuje sve striktne opcije
+    "esModuleInterop": true,               // Omogućava interoperabilnost sa ES modulima
+    "forceConsistentCasingInFileNames": true, // Obavezna doslednost u imenima fajlova
+    "skipLibCheck": true,                  // Preskače proveru tipova u `node_modules`
+    "resolveJsonModule": true,             // Omogućava uvoz JSON fajlova
+    "moduleResolution": "node",            // Resolucija modula u Node stilu
+    "noImplicitAny": true,                 // Upozorava na implicitne tipove `any`
+    "strictNullChecks": true,              // Omogućava strogu proveru `null` i `undefined`
+    "strictPropertyInitialization": true, // Proverava inicijalizaciju svojstava klase
+    "typeRoots": ["./node_modules/@types"], // Lokacija za tipove
+    "baseUrl": "./",                       // Osnovna putanja za relativne module
+    "paths": {
+      "*": ["node_modules/*"]              // Predefiniše putanje za module
+    }
+  },
+  "include": ["src/**/*.ts", "src/config/config.js"],              // Uključuje sve TypeScript fajlove u `src`
+  "exclude": ["node_modules", "dist"]      // Isključuje `node_modules` i izlazni direktorijum
+}

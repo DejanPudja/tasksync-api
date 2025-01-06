@@ -1,0 +1,44 @@
+{
+  "name": "tasksync-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "dev": "nodemon src/app.ts",
+    "sync": "ts-node src/sync.ts",
+    "build": "tsc",
+    "sequelize": "sequelize-cli",
+    "migration:generate": "npx sequelize-cli migration:generate --name",
+    "migration:create": "npx sequelize-cli migration:create --migrations-path src/migrations",
+    "migration:run": "npx sequelize-cli db:migrate",
+    "migration:undo": "npx sequelize-cli db:migrate:undo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DejanPudja/tasksync-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DejanPudja/tasksync-api/issues"
+  },
+  "homepage": "https://github.com/DejanPudja/tasksync-api#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "nodemon": "^3.1.9",
+    "sequelize-cli": "^6.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
