@@ -13,6 +13,7 @@ export const Project = sequelize.define<Model<ProjectAttributes>>(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     user_id: {
       type: DataTypes.INTEGER,

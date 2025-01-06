@@ -9,7 +9,7 @@ export const getProjects = async (
     const projects = await Project.findAll({});
 
     res.status(200).json({
-      users: projects,
+      projects: projects,
       success: true,
     });
   } catch (error: any) {
@@ -82,6 +82,42 @@ export const deleteProject = async (
       message: "Internal Server Error!",
       success: false,
       error: error.message,
+    });
+  }
+};
+
+export const createProject = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { name, user_id, status } = req.body;
+
+    const existingProject = await Project.findOne({ where: { name } });
+
+    if (existingProject) {
+      res
+        .status(400)
+        .json({ message: "The name is already in use!", success: false });
+      return;
+    }
+
+    const newProject = await Project.create({
+      name,
+      user_id,
+      status,
+    });
+
+    res.status(201).json({
+      message: "Project created successfully!",
+      project: newProject,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal Server Error!",
+      error: error.message,
+      success: false,
     });
   }
 };
