@@ -14,8 +14,8 @@ import { handleValidationErrors } from "../middlewares/validationResultHandler";
 
 const router = Router();
 
-router.get("/users", getUsers);
-router.get("/user/:id", getUserById);
+router.get("/", getUsers);
+router.get("/:id", getUserById);
 router.post(
   "/register",
   validateUserRegistration,
@@ -23,6 +23,6 @@ router.post(
   registerUser
 );
 router.post("/login", validateUserLogin, handleValidationErrors, loginUser);
-router.delete("/delete-user/:id", deleteUser);
+router.delete("/delete/:id", deleteUser);
 
 export default router;

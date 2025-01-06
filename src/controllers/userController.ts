@@ -5,7 +5,7 @@ import User from "../models/user";
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await User.findAll({
-      attributes: ["name", "email", "role"],
+      attributes: ["id", "name", "email", "role"],
     });
 
     res.status(200).json({
@@ -29,7 +29,7 @@ export const getUserById = async (
     const { id } = req.params;
     const user = await User.findOne({
       where: { id },
-      attributes: ["name", "email", "role"],
+      attributes: ["id", "name", "email", "role"],
     });
 
     res.status(200).json({

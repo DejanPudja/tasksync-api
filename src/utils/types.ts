@@ -14,3 +14,12 @@ export type UserCreationAttributes = Optional<
   UserAttributes,
   "id" | "createdAt" | "updatedAt"
 >;
+
+export interface ProjectAttributes {
+  id?: number;
+  name: string;
+  user_id?: number | null;
+  status: "active" | "complete";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
