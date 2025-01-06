@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await User.findAll({
       attributes: ["name", "email", "role"],
@@ -21,7 +21,10 @@ export const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
     const user = await User.findOne({
@@ -31,6 +34,39 @@ export const getUserById = async (req: Request, res: Response) => {
 
     res.status(200).json({
       user: user,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal Server Error!",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+export const deleteUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({
+      where: { id },
+    });
+
+    if (!user) {
+      res.status(404).json({
+        user: "User not exist!",
+        success: false,
+      });
+      return;
+    }
+
+    await user.destroy();
+
+    res.status(200).json({
+      user: "User successfully deleted!",
       success: true,
     });
   } catch (error: any) {
