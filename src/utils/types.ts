@@ -23,3 +23,15 @@ export interface ProjectAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface TaskAttributes {
+  id?: number;
+  name: string;
+  link: string;
+  description: string;
+  user_id: number | null;
+  project_id: number | null;
+  parent_id: number | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
