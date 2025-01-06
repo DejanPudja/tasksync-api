@@ -32,6 +32,15 @@ export const getUserById = async (
       attributes: ["id", "name", "email", "role"],
     });
 
+    if (!user) {
+      res.status(404).json({
+        message: 'User not exist!',
+        success: false,
+        user: [],
+      });
+      return;
+    }
+
     res.status(200).json({
       user: user,
       success: true,
@@ -57,7 +66,7 @@ export const deleteUser = async (
 
     if (!user) {
       res.status(404).json({
-        user: "User not exist!",
+        message: "User not exist!",
         success: false,
       });
       return;
@@ -66,7 +75,7 @@ export const deleteUser = async (
     await user.destroy();
 
     res.status(200).json({
-      user: "User successfully deleted!",
+      message: "User successfully deleted!",
       success: true,
     });
   } catch (error: any) {
